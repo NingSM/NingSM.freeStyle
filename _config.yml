@@ -1,6 +1,6 @@
 # Basic
 title: 宁尚明 | SWJTU-CCIT
-subtitle: NingSM-SWJTU-CCIT Blog
+subtitle: NingSM 的 Blog
 description: 欢迎来到Ning的博客~
 # 头像里面的标题
 avatarTitle: NingSM
@@ -10,8 +10,8 @@ url: "http://NingSMM.github.io"
 
 # Comment
 comment:
-    disqus: NingSM
-    # uyan: 2143225  # 有言id,登录有言官网申请
+    disqus: NingSM    ####（https://disqus.com/）
+    uyan: 2145525  # 有言id,登录有言官网申请
 
 # Social
 social:
@@ -22,8 +22,8 @@ social:
 
 # 百度统计 
 # 使用博客模板请去掉或者更换 id 
-#baidu:
- #   id: 8ba1c6be0953b6f9c2ba38e57f615421  
+baidu:
+    id: 7697528b9ed9f821d819b112fc9a77c1  
 
 # Google Analytics
 # 使用博客模板请去掉或者更换 id
