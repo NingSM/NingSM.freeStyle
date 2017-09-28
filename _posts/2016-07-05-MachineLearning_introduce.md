@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "机器学习入门（名词科普）"
+comments: true
 date: 2016-07-05 
 description: "机器学习入门篇"
 tag: 机器学习  
