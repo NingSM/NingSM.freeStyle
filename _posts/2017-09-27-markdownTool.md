@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Markdown工具集"
+comments: true
 date: 2017-09-27
 description: "MD工具介绍"
 tag: 工具  
