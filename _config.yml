@@ -11,7 +11,7 @@ url: "http://NingSMM.github.io"
 # Comment
 comment:
     disqus: NingSM    ####（https://disqus.com/）
-    uyan: 2145525  # 有言id,登录有言官网申请
+    #uyan: 2145525  # 有言id,登录有言官网申请
 
 # Social
 social:
