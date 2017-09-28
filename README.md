@@ -51,15 +51,6 @@ Jekyll 需要依赖：Ruby、bundler
 搭建博客如果遇到问题可以看看由baixin提供的教程[Jekyll搭建个人博客](http://baixin.io/2016/10/jekyll_tutorials1/)。
 
 
-### 效果预览
-
-#### 头像效果
-
-![](/images/readme//icon.gif)
-
-如果你只想要博客里的头像效果，你只需要拿 NingSM.github.io/_includes/side-panel.html 文件里面 `头像效果` 和 NingSM.github.io/css/main.css 里面最后面 `头像效果` 部分就行了。
-
-
 ***
 
 #### 博客首页   
