@@ -1,11 +1,11 @@
 ﻿---
 layout: post
-title: "关于Hadoop和Spark的种种"
-date: 2017-9-28 
-description: "Hadoop Spark"
-tag: 云平台  
+title: "机器学习入门（名词科）"
+date: 2016-07-05 
+description: "机器学习入门"
+tag: 机器学习  
 
----    
+---     
 # 关于Hadoop和Spark的种种
 
 标签（空格分隔）： Spark
