@@ -4,6 +4,7 @@ title: "我眼中的Hadoop Spark"
 date: 2017-09-28 
 author: NingSM
 description: "云平台"
+header-img: images/avatar.jpg
 catalog: true
 tag: 云平台  
 
