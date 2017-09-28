@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: "我眼中的Hadoop Spark"
 date: 2017-09-28 
 author: NingSM
@@ -9,6 +10,7 @@ catalog: true
 tag: 云平台  
 
 ---
+
 
 # 关于Hadoop和Spark的种种
 
