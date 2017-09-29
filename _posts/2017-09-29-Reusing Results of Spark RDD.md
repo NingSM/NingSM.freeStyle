@@ -85,7 +85,9 @@ RDDShare系统能够对多DAG中出现相同task的RDD进行管理，并能够�
  >[2] T. Nykiel, M. Potamias, C. Mishra, G. Kollios, and N. Koudas. MRShare: sharing across multiple queries in MapReduce. Proc. VLDB Endow. (PVLDB), 3(1-2):494–505, 2010.
  >[3] Iman Elghandour, Ashraf Aboulnaga. ReStore: Reusing Results of MapReduce Jobs. Proc of the 38nd VLDB Conf[C], 2012. 2150-8097.
  > 
-   
+
+---
+
 ## RDDShare System
 > * RDDShare System在下文简称 RSS。*
 
