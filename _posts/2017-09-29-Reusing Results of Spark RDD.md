@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spark RDD重用的一种方法"
+title: "RDD在Spark SQL中重用的方法研究---IEEE论文总结"
 comments: true
 date: 2017-09-29
 description: "RDD重用"
@@ -29,6 +29,7 @@ Spark作为当下最受关注的分布式计算框架，以其在内存中迭代
 
 ---
 > 论文中可能会涉及到一些基本的spark的原理等相关内容，在本篇博客中就不详细解释了，如果想要有所了解，[Spark官](http://spark.apache.org/docs/latest/)网是比任何书籍都要通俗易懂的教程，之前自己看源码学习spark的笔记会慢慢整理搬到线上的。请各位大佬多多支持。
+> 
 
 ---
 ## 论文牵扯到的Spark基础
@@ -55,23 +56,26 @@ RDDShare系统能够对多DAG中出现相同task的RDD进行管理，并能够�
 ## 相关已有研究成果
 相关研究分为传统数据库的缓存技术以及云平台下的缓存。
 1.  传统数据库
-语义缓存： 缓存查询结果及其相应的语义信息。
-      \--->表缓存
-      \--->动态试图缓存
-      \--->高速缓存
-      \--->OLAP block cache
-      >参考：CAI Jian-yu, YANG Shu-qiang. A Survey of Semantic Caching in Relational Databases. COMPUTER ENGINEERING & SCIENCE. Vol.7, No.10, 2005
+语义缓存： 缓存查询结果及其相应的语义信息
+分为以下几种：
+      表缓存
+      动态试图缓存
+      高速缓存
+      OLAP block cache
+>参考：CAI Jian-yu, YANG Shu-qiang. A Survey of Semantic Caching in Relational Databases. COMPUTER ENGINEERING & SCIENCE. Vol.7, No.10, 2005
+> 
  
 2. 云平台
-    \--->Parag：base on mapreduce，扫描数据文件匹配到用户指令，进行数据共享[1]
-    \--->Tomasz：base on mapreduce，合并相同作业，另外还使用了成本模型[2]
-    \--->Iman：保存历史中间结果[3]
-  >参考：
-  >[1] P. Agrawal, D. Kifer, and C. Olston. Scheduling shared scans of large data files. Proc. VLDB Endow.(PVLDB),  1(1):958–969, 2008.
-  >[2] T. Nykiel, M. Potamias, C. Mishra, G. Kollios, and N. Koudas. MRShare: sharing across multiple queries in MapReduce. Proc. VLDB Endow. (PVLDB), 3(1-2):494–505, 2010.
-  >[3] Iman Elghandour, Ashraf Aboulnaga. ReStore: Reusing Results of MapReduce Jobs. Proc of the 38nd VLDB Conf[C], 2012. 2150-8097.
-  
-   
+分为以下几种：
+    Parag：base on mapreduce，扫描数据文件匹配到用户指令，进行数据共享[1]
+    Tomasz：base on mapreduce，合并相同作业，另外还使用了成本模型[2]
+    Iman：保存历史中间结果[3]
+ >参考：
+ >[1] P. Agrawal, D. Kifer, and C. Olston. Scheduling shared scans of large data files. Proc. VLDB Endow.(PVLDB),  1(1):958–969, 2008.
+ >[2] T. Nykiel, M. Potamias, C. Mishra, G. Kollios, and N. Koudas. MRShare: sharing across multiple queries in MapReduce. Proc. VLDB Endow. (PVLDB), 3(1-2):494–505, 2010.
+ >[3] Iman Elghandour, Ashraf Aboulnaga. ReStore: Reusing Results of MapReduce Jobs. Proc of the 38nd VLDB Conf[C], 2012. 2150-8097.
+ > 
+   
 ## RDDShare System
 > * RDDShare System在下文简称 RSS。*
 
@@ -149,6 +153,7 @@ Query1的rewrite-DAG如下：
 >DAG Matcher：DAG的匹配器
 >RDD Cacher：RDD的缓存器
 >DAG Rewriter：DAG的复写器
+> 
 
 ---
 #####工作流程
@@ -163,6 +168,7 @@ Query1的rewrite-DAG如下：
 >3. 首先对于第一个DAG（第一个job）会被直接送去计算，因为这个时候并没有缓存的中间结果给他用，此时matching window中就空缺了一个位置，candidate中的DAG会挨个通过**DAG Matcher**与matching window总的DAG进行匹配，匹配的目的是为了寻找到重复次数最高的RDD先进行缓存。
 >4. 寻找这样一个RDDMAX就是用matching中的每一个DAG拿去给candidate中的DAG重复去比，寻找到两两间重复次数最高的那个DAG，一有重复的就记录一个 $Repeat_j$，最后找到重复次数最高的那个 ![](http://latex.codecogs.com/gif.latex?%24Repeat_j%24)，其对应一个DAGMAX以及RDDMAX，与之对应的原有的candidate window 中的DAG可能会有多个，记作 ![](http://latex.codecogs.com/gif.latex?%24DAG_%7Bimax%7D%24) 以及 ![](http://latex.codecogs.com/gif.latex?%24%7BRDD_%7Bimax%7D%7D%24)
 > 5.此时RDD Cacher会持久化这个RDDMAX到内存或者磁盘，随后，立马通过DAG Rewriter将持久化后的RDD直接复写到 DAG_imax中，并依次将 DAG_imax 压入matching window中。
+> 
 
 ---
 至此，整个系统的工作原理介绍完毕。
