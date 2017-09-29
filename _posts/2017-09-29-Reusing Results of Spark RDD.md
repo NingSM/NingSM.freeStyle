@@ -56,20 +56,24 @@ RDDShare系统能够对多DAG中出现相同task的RDD进行管理，并能够�
 ## 相关已有研究成果
 相关研究分为传统数据库的缓存技术以及云平台下的缓存。
 1.  传统数据库
-语义缓存： 缓存查询结果及其相应的语义信息
-分为以下几种：
+语义缓存： 缓存查询结果及其相应的语义信息  
+分为以下几种：  
+
       表缓存
       动态试图缓存
       高速缓存
-      OLAP block cache
+      OLAP block cache  
+      
 >参考：CAI Jian-yu, YANG Shu-qiang. A Survey of Semantic Caching in Relational Databases. COMPUTER ENGINEERING & SCIENCE. Vol.7, No.10, 2005
 > 
  
 2. 云平台
-分为以下几种：
-    Parag：base on mapreduce，扫描数据文件匹配到用户指令，进行数据共享[1]
+分为以下几种：  
+
+    Parag：base on mapreduce，扫描数据文件匹配到用户指令，进行数据共享[1]
     Tomasz：base on mapreduce，合并相同作业，另外还使用了成本模型[2]
-    Iman：保存历史中间结果[3]
+    Iman：保存历史中间结果[3]  
+    
  >参考：
  >[1] P. Agrawal, D. Kifer, and C. Olston. Scheduling shared scans of large data files. Proc. VLDB Endow.(PVLDB),  1(1):958–969, 2008.
  >[2] T. Nykiel, M. Potamias, C. Mishra, G. Kollios, and N. Koudas. MRShare: sharing across multiple queries in MapReduce. Proc. VLDB Endow. (PVLDB), 3(1-2):494–505, 2010.
@@ -86,7 +90,8 @@ RDDShare系统能够对多DAG中出现相同task的RDD进行管理，并能够�
 #### 举例
 下面主要以两个例子来阐述RSS
 
-Query1：返回年龄大于18的用户信息以及网页信息
+Query1：返回年龄大于18的用户信息以及网页信息  
+
 ```scala
 val users = sqlContext.read.json("users.json")
 val page_views = sqlContext.read.json(“page_views.json")
@@ -95,7 +100,8 @@ users("name"))
 val result = rddjoin.show()
 ```
 ---
-Query2：根据用户名进行分组，并返回超过18岁的用户的总体估计收入
+Query2：根据用户名进行分组，并返回超过18岁的用户的总体估计收入  
+
 ```scala
 val users = sqlContext.read.json("users.json")
 val page_views = sqlContext.read.json(“page_views.json")
