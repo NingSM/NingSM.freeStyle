@@ -18,11 +18,11 @@ tag: Spark,Paper
 > 《RDD Share：Reusing Results of Spark RDD》
 
 ---
-## 文章概述及问题描述
+## 文章概述及问题描述  
 
 Spark作为当下最受关注的分布式计算框架，以其在内存中迭代的特点而逐渐被工业界广泛使用。对于单个用 户，Spark所提供的cache功能（持久化）可以让某些RDD的中间结果在同一个App中的不同jobs间进行共享，但是对于线上的应用，可能同时会用出现多个用户同时发生操作或是前后发生不同操作但是可能会产生相同的中间数据，此时如何管理这些需要需要被重用的RDD使其能够被不同用户所访问是当下Spark不提供的功能。  
 
-** 那么为何要进行这样的工作呢？**
+**那么为何要进行这样的工作呢？**
 首先是为了提高资源的利用率并降低计算成本，相同RDD缓存后，其他app一旦遇到相同RDD的数据，就可以直接拿过来计算，并不需要重复计算；SQL的常用操作大多都是查询、插入等基本指令，因此重复性的工作是需要避免的，这样可以减轻数据仓库的负债压力。举个小例子：脸书通常情况下会持久化这样的RDD长达天之久。足可见，对于一个大型的分布式系统，这样的考虑和改进是必不可少的。
 
 本片论文就是基于Spark SQL（虽然目前主流的是Spark dataframe以及dataset）提出一种RDDShare系统来管理这些RDD并调度他们在不同用户间进行重用。
@@ -32,13 +32,16 @@ Spark作为当下最受关注的分布式计算框架，以其在内存中迭代
 > 
 
 ---
-## 论文牵扯到的Spark基础
+## 论文牵扯到的Spark基础  
+
 1. **Spark SQL**
 Spark SQL（下文简称ssql）可以操作类似数据库表或是表单格式的结构化数据，用户提交查询或其他请求给 ssql，ssql会将你的请求代码转化为RDD集合，RDD前后就会产生依赖关系，并最终讲这样的RDD集合提交给Spark Core（sc）来进行计算。sc的高层调度器DAGScheduler会首先将RDD集合转化为DAG图，然后将具体要执行的tasks信息由底层调度器TaskScheduler来分发到各个节点的Executor中去执行。在使用RDD的编程接口的时候，用户可以使用持久化算子来将需要重复使用的RDD进行缓存，以提高作业执行的效率。
 
----
+---  
+
 2. **Catalyst**
-Spark SQL的Catalyst优化器将sql转化为可执行的RDD需要经历以下几步（以查询命令为例）：
+Spark SQL的Catalyst优化器将sql转化为可执行的RDD需要经历以下几步（以查询命令为例）：  
+
 1> 将查询语句转化为未被解析的逻辑语法树
 2> 解析语法书
 3> 基于规则来优化语法树
@@ -48,13 +51,16 @@ Spark SQL的Catalyst优化器将sql转化为可执行的RDD需要经历以下几
 最后RDDs将在Spark Core中进行计算
 
 ---
-## 方法概述
+## 方法概述  
+
 RDDShare系统能够对多DAG中出现相同task的RDD进行管理，并能够自动在多DAG中去识别相同的RDD，将其重用于其他DAG的计算。
 
 ---
 
-## 相关已有研究成果
-相关研究分为传统数据库的缓存技术以及云平台下的缓存。
+## 相关已有研究成果  
+
+相关研究分为传统数据库的缓存技术以及云平台下的缓存。  
+
 1.  传统数据库
 语义缓存： 缓存查询结果及其相应的语义信息  
 分为以下几种：  
@@ -165,7 +171,7 @@ Query1的rewrite-DAG如下：
 #####工作流程
 先给出一副工作流程图，基本上光看图也能明白这三个核心组件是怎样在工作的
 
-<div align=center><img width="500" height="700" src="http://ieeexplore.ieee.org/mediastore/IEEE/content/media/7864767/7866072/7866153/7866153-fig-8-large.gif" alt="RDDShare 的工作流程图"/></div>
+<div align=center><img src="http://ieeexplore.ieee.org/mediastore/IEEE/content/media/7864767/7866072/7866153/7866153-fig-8-large.gif" alt="RDDShare 的工作流程图"/></div>
 
 
 根据图中所展示的流程，简要介绍一下RDDShare的工作机制： 
@@ -187,6 +193,6 @@ Query1的rewrite-DAG如下：
 
 ---
 
-**我的简书 : <http://www.jianshu.com/p/0090ca6a1bd9> **
+**我的简书: <http://www.jianshu.com/p/0090ca6a1bd9>**
 
 **转载请注明原址，谢谢*。
