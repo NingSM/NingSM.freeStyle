@@ -445,6 +445,15 @@ spark.history.fs.logDirectory     hdfs://主节点ip:9000:9000/historyforSpark
 #### 3.4   分发文件到此节点
 一个个进行SCP将上述全部文件拷贝到次节点太繁琐，所以提供一个脚本，用于批处理远程拷贝（可兼容拷贝文件夹）：
 ```
+#/usr/bin/sh
+SOURCEFILE=$1
+TARGETDIR=$2
+hosts="sist02 sist03 sist04 sist05 sist06 sist07 sist08 sist09 sist10"
+for host in $hosts
+do 
+    echo $host;
+    scp -r $SOURCEFILE root@$host:$TARGETDIR;
+done
 
 ```
 使用上述脚本，修改脚本中的hostname即可。
