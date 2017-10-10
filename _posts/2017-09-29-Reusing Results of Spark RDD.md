@@ -39,7 +39,7 @@ Spark SQL（下文简称ssql）可以操作类似数据库表或是表单格式�
 
 ---  
 
-2. **Catalyst**
+2. ** Catalyst **
 Spark SQL的Catalyst优化器将sql转化为可执行的RDD需要经历以下几步（以查询命令为例）：  
 
 1> 将查询语句转化为未被解析的逻辑语法树
@@ -157,20 +157,20 @@ Query1的rewrite-DAG如下：
 
 其中 ![](http://latex.codecogs.com/gif.latex?%24T_%7Bload%7D%24&plus;T_%7Bshuffle%7D&plus;T_%7Bstore%7D%24%24) 就代表读取已有缓存所耗费的时间，![](http://latex.codecogs.com/gif.latex?%24T_%7Btransformation/action%7D%24) 代表所有Transformation级别算子的耗时，![](http://latex.codecogs.com/gif.latex?%24T_%7Bshuffle%7D%24) 代表宽依赖算子所要消耗的时间。![](http://latex.codecogs.com/gif.latex?%24T_%7Bstore%7D%24) 代表存储结果所要花费的时间，一般情况下，也只有发生cache等持久化或是遇到Action级别算子（典型的saveAstextFile）的时候才会产生存储的时间耗费。
 
-###RDDShare的组件
-#####输入输出
+### RDDShare的组件
+##### 输入输出
 > 输入：DAGs
 > 输出：rewrite后的DAGs
 
 ---
-#####核心组件
+##### 核心组件
 >DAG Matcher：DAG的匹配器
 >RDD Cacher：RDD的缓存器
 >DAG Rewriter：DAG的复写器
 > 
 
 ---
-#####工作流程
+##### 工作流程
 先给出一副工作流程图，基本上光看图也能明白这三个核心组件是怎样在工作的
 
 <div align=center><img src="http://ieeexplore.ieee.org/mediastore/IEEE/content/media/7864767/7866072/7866153/7866153-fig-8-large.gif" alt="RDDShare 的工作流程图"/></div>
@@ -187,7 +187,7 @@ Query1的rewrite-DAG如下：
 ---
 至此，整个系统的工作原理介绍完毕。
 
-###总结与延伸
+### 总结与延伸
 
 这篇文章篇幅较短，基本上精度一遍也花不了太多时间。虽然这样的研究是基于Spark-1.5，但是对于目前的版本仍能够提供很好的思路。后续自己将做一下延伸，个人感觉本片论文的对于处理结构化数据时候的复用思路是值得推广并有很大使用价值和效益意义。
 
@@ -195,6 +195,6 @@ Query1的rewrite-DAG如下：
 
 ---
 
-**我的简书: <http://www.jianshu.com/p/0090ca6a1bd9>**
+** 我的简书: <http://www.jianshu.com/p/0090ca6a1bd9> **
 
-**转载请注明原址，谢谢*。
+** 转载请注明原址，谢谢 *。
