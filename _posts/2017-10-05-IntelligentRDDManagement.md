@@ -4,7 +4,7 @@ title: "智能RDD管理--用于在Spark中实现高性能内存计算---论文�
 comments: true
 date: 2017-10-05
 description: "RDD重用"
-tag: Spark,Paper
+tag: Spark-paper
 
 ---
 

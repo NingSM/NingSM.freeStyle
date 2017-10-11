@@ -4,7 +4,7 @@ title: "RDD在Spark SQL中重用的方法研究---IEEE论文总结"
 comments: true
 date: 2017-09-29
 description: "RDD重用"
-tag: Spark,Paper
+tag: Spark-paper
 
 --- 
 

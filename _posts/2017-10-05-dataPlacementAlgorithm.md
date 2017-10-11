@@ -4,7 +4,7 @@ title: "用于数据负载平衡的spark中间数据存储策略"
 comments: true
 date: 2017-10-8
 description: "shuffle数据倾斜问题的分析与解决"
-tag: Spark
+tag: Spark-paper
 
 ---
 
